@@ -1,1 +1,1 @@
-# Juego-Servicio
+# Juego educativo en HTML y JS
