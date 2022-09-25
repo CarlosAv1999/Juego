@@ -79,7 +79,8 @@ const player = new Sprite ({
     },
     image: playerDownImage,
     frames: {
-        max: 4
+        max: 4,
+        hold: 20
     },
     sprites: {
         up: playerUpImage,
@@ -134,7 +135,8 @@ const battle = {
 }
 
 function animate() {
-    window.requestAnimationFrame(animate)
+    const animationId = window.requestAnimationFrame(animate)
+    //console.log(animationId)
     background.draw()
     boundaries.forEach(boundary => {
         boundary.draw()
@@ -146,7 +148,7 @@ function animate() {
     foreground.draw()
 
     let moving = true
-    player.moving = false
+    player.animate = false
 
     if(battle.initiated) return
     //activate a battle
@@ -173,7 +175,29 @@ function animate() {
                 Math.random() < 0.01
                 ) {
                 console.log('activate battle')
+                window.cancelAnimationFrame(animationId)
                 battle.initiated = true
+                gsap.to('#overlappingDiv', {
+                    opacity: 1,
+                    repeat: 3,
+                    yoyo: true,
+                    duration: 0.4,
+                    onComplete(){
+                        gsap.to('#overlappingDiv',{
+                            opacity: 1,
+                            duration: 0.4,
+                            onComplete(){
+                                animateBattle()
+                                gsap.to('#overlappingDiv',{
+                                    opacity: 0,
+                                    duration: 0.4
+                                })
+                            }
+                        })
+                        
+                    }
+                })
+
                 break
             }
         }
@@ -181,7 +205,7 @@ function animate() {
 
     
     if(keys.w.pressed && lastKey === 'w') {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.up
         for (let i = 0; i < boundaries.length; i++){
             const boundary = boundaries[i]
@@ -208,7 +232,7 @@ function animate() {
                 movable.position.y += 3
             })
     } else if(keys.a.pressed && lastKey === 'a') {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.left
         for (let i = 0; i < boundaries.length; i++){
             const boundary = boundaries[i]
@@ -234,7 +258,7 @@ function animate() {
                 movable.position.x += 3
             })
     } else if(keys.s.pressed && lastKey === 's') {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.down
         for (let i = 0; i < boundaries.length; i++){
             const boundary = boundaries[i]
@@ -260,7 +284,7 @@ function animate() {
                 movable.position.y -= 3
             })
     } else if(keys.d.pressed && lastKey === 'd') {
-        player.moving = true
+        player.animate = true
         player.image = player.sprites.right
         for (let i = 0; i < boundaries.length; i++){
             const boundary = boundaries[i]
@@ -288,7 +312,59 @@ function animate() {
     }
 }
 
-animate()
+//animate()
+
+const battleBackgroundImage = new Image()
+battleBackgroundImage.src = './My Game Assets/Images/battleBackground.png'
+const battleBackground = new Sprite({
+    position: {
+        x: 0,
+        y: 0
+    },
+    image: battleBackgroundImage
+})
+
+const draggleImage = new Image()
+draggleImage.src = './My Game Assets/Images/draggleSprite.png'
+
+const draggle = new Sprite({
+    position: {
+        x: 800,
+        y: 100
+    },
+    image: draggleImage,
+    frames: {
+        max: 4,
+        hold: 60
+    },
+    animate: true
+})
+
+const embyImage = new Image()
+embyImage.src = './My Game Assets/Images/embySprite.png'
+
+const emby = new Sprite({
+    position: {
+        x: 280,
+        y: 325
+    },
+    image: embyImage,
+    frames: {
+        max: 4,
+        hold: 60
+    },
+    animate: true
+})
+
+function animateBattle(){
+    window.requestAnimationFrame(animateBattle)
+    battleBackground.draw()
+    draggle.draw()
+    emby.draw()
+}
+
+animateBattle()
+//animate()
 
 let lastKey = ''
 
