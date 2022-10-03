@@ -337,7 +337,8 @@ const draggle = new Sprite({
         max: 4,
         hold: 60
     },
-    animate: true
+    animate: true,
+    isEnemy: true
 })
 
 const embyImage = new Image()
@@ -364,7 +365,20 @@ function animateBattle(){
 }
 
 animateBattle()
-//animate()
+
+document.querySelectorAll('button').forEach((button) => {
+    button.addEventListener('click', () => {
+        emby.attack({ 
+            attack: {
+                name: 'Tackle',
+                damage: 10,
+                type: 'Normal'
+            },
+            recipient: draggle
+        })
+    })
+})
+
 
 let lastKey = ''
 
