@@ -187,6 +187,7 @@ function animate() {
                             opacity: 1,
                             duration: 0.4,
                             onComplete(){
+                                initBattle()
                                 animateBattle()
                                 gsap.to('#overlappingDiv',{
                                     opacity: 0,
@@ -313,75 +314,6 @@ function animate() {
 }
 
 //animate()
-
-const battleBackgroundImage = new Image()
-battleBackgroundImage.src = './My Game Assets/Images/battleBackground.png'
-const battleBackground = new Sprite({
-    position: {
-        x: 0,
-        y: 0
-    },
-    image: battleBackgroundImage
-})
-
-const draggleImage = new Image()
-draggleImage.src = './My Game Assets/Images/draggleSprite.png'
-
-const draggle = new Sprite({
-    position: {
-        x: 800,
-        y: 100
-    },
-    image: draggleImage,
-    frames: {
-        max: 4,
-        hold: 60
-    },
-    animate: true,
-    isEnemy: true
-})
-
-const embyImage = new Image()
-embyImage.src = './My Game Assets/Images/embySprite.png'
-
-const emby = new Sprite({
-    position: {
-        x: 280,
-        y: 325
-    },
-    image: embyImage,
-    frames: {
-        max: 4,
-        hold: 60
-    },
-    animate: true
-})
-
-const renderedSprites = [draggle, emby]
-function animateBattle(){
-    window.requestAnimationFrame(animateBattle)
-    battleBackground.draw()
-
-    renderedSprites.forEach(sprite => {
-        sprite.draw()
-    })
-}
-
-//animate()
-animateBattle()
-
-// our event listeners for our buttons (attack)
-document.querySelectorAll('button').forEach((button) => {
-    button.addEventListener('click', (e) => {
-        const selectedAttack = attacks[e.currentTarget.innerHTML]
-        emby.attack({ 
-            attack: selectedAttack,
-            recipient: draggle,
-            renderedSprites
-        })
-    })
-})
-
 
 let lastKey = ''
 
