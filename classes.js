@@ -91,6 +91,8 @@ class Monster extends Sprite {
         gsap.to(this, {
             opacity: 0
         })
+        audio.battle.stop()
+        audio.victory.play()
     }
     
     attack({attack, recipient, renderedSprites}) {
@@ -108,48 +110,50 @@ class Monster extends Sprite {
 
         switch (attack.name){
             case 'Fireball':
-            const fireballImage = new Image()
-            fireballImage.src = './My Game Assets/Images/fireball.png'
-            const fireball = new Sprite({
-                position: {
-                    x: this.position.x,
-                    y: this.position.y
-                },
-                image: fireballImage,
-                frames: {
-                    max: 4,
-                    hold: 20
-                },
-                animate: true,
-                rotation
-            })
+                audio.initFireBall.play()
+                const fireballImage = new Image()
+                fireballImage.src = './My Game Assets/Images/fireball.png'
+                const fireball = new Sprite({
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    image: fireballImage,
+                    frames: {
+                        max: 4,
+                        hold: 20
+                    },
+                    animate: true,
+                    rotation
+                })
 
-            renderedSprites.splice(1, 0, fireball)
+                renderedSprites.splice(1, 0, fireball)
 
-            gsap.to(fireball.position, {
-                x: recipient.position.x,
-                y: recipient.position.y,
-                onComplete: () => {
-                    gsap.to(healthBar, {
-                        width: recipient.health + '%'
-                    })
+                gsap.to(fireball.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        audio.fireballHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
 
-                    gsap.to(recipient.position, {
-                        x: recipient.position.x + 10,
-                        yoyo: true,
-                        repeat: 5,
-                        duration: 0.08
-                    })
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
 
-                    gsap.to(recipient, {
-                        opacity: 0,
-                        repeat: 5, 
-                        yoyo: true,
-                        duration: 0.08
-                    })
-                    renderedSprites.splice(1, 1)
-                }
-            })
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                        renderedSprites.splice(1, 1)
+                    }
+                })
 
             break;
             case 'Tackle':
@@ -166,6 +170,7 @@ class Monster extends Sprite {
                     duration: 0.1,
                     onComplete: () => {
 
+                        audio.tackleHit.play()
                         gsap.to(healthBar, {
                             width: recipient.health + '%'
                         })
