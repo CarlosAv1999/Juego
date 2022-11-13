@@ -54,22 +54,22 @@ battleZonesMap.forEach((row, i)=> {
 console.log(battleZones)
 
 const image = new Image()
-image.src = './My Game Assets/Pellet Town.png'
+image.src = './My Game Assets/Images/Pellet Town.png'
 
 const foregroundImage = new Image()
 foregroundImage.src = './My Game Assets/Tiled/foregroundObjects.png'
 
 const playerDownImage = new Image()
-playerDownImage.src = './My Game Assets/playerDown.png'
+playerDownImage.src = './My Game Assets/Images/playerDown.png'
 
 const playerUpImage = new Image()
-playerUpImage.src = './My Game Assets/playerUp.png'
+playerUpImage.src = './My Game Assets/Images/playerUp.png'
 
 const playerLeftImage = new Image()
-playerLeftImage.src = './My Game Assets/playerLeft.png'
+playerLeftImage.src = './My Game Assets/Images/playerLeft.png'
 
 const playerRightImage = new Image()
-playerRightImage.src = './My Game Assets/playerRight.png'
+playerRightImage.src = './My Game Assets/Images/playerRight.png'
 
 
 const player = new Sprite ({
