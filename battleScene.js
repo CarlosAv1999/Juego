@@ -14,11 +14,107 @@ let renderedSprites
 let battleAnimationId
 let queue 
 
+var vecProblema = []
+var resCorrecta = 0
+var pregunta = 0
+var promLength = problemas.length
+  
+function createButtons(){
+    vecProblema = []
+    var azar = Math.floor(Math.random() * promLength)
+    var contLength = problemas[azar].length
+    var resAleatoria = 0
+    var elementoEliminado = 0
+    var lengthAux = 0
+    
+    for(i=0; i<contLength; i++){
+        vecProblema.push(problemas[azar][i])
+    }
+    pregunta = vecProblema[0]
+    resCorrecta = vecProblema[1]
+
+    document.querySelector('#attackType').innerHTML = pregunta
+    document.querySelector('#attackType').style.color = "red"
+
+    lengthAux = contLength
+    for(i=1; i<contLength; i++){
+        azar = Math.floor(Math.random() * (lengthAux - 1) + 1)
+        resAleatoria = vecProblema[azar]
+        elementoEliminado = vecProblema.splice(azar, 1)
+        const button = document.createElement('button')
+        button.name = "nombre" + i
+        button.innerHTML = resAleatoria
+        document.querySelector('#attacksBox').append(button)
+        lengthAux = lengthAux - 1
+    }
+}
+
+/*function modifyButtons(){
+    var azar = Math.floor(Math.random() * promLength)
+    var contLength = problemas[azar].length
+    var resAleatoria
+    var elementoEliminado
+    var lengthAux
+
+    vecProblema = problemas[azar]
+
+    pregunta = vecProblema[0]
+    resCorrecta = vecProblema[1]
+
+    document.querySelector('#attackType').innerHTML = pregunta
+    document.querySelector('#attackType').style.color = "red"
+
+    lengthAux = contLength
+    for(i=1; i<contLength; i++){
+        azar = Math.floor(Math.random() * (lengthAux - 1) + 1)
+        resAleatoria = vecProblema[azar]
+        elementoEliminado = vecProblema.splice(azar, 1)
+        const button = document.querySelector('[name="\\'+ i + '"]').innerHTML = "obooo"
+        //button.innerHTML = "obooo"
+        //document.querySelector('#attacksBox').append(button)
+        lengthAux = lengthAux - 1
+    }
+}*/
+
+function modifyButtons(){
+    console.log('entroooo modify')
+    var azar2 = Math.floor(Math.random() * promLength)
+    var contLength2 = problemas[azar2].length
+    var resAleatoria2
+    var elementoEliminado2
+    var lengthAux2
+    var name2
+
+    vecProblema = []
+    for(i=0; i<contLength2; i++){
+        vecProblema.push(problemas[azar2][i])
+    }
+
+    pregunta = vecProblema[0]
+    resCorrecta = vecProblema[1]
+
+    document.querySelector('#attackType').innerHTML = pregunta
+    document.querySelector('#attackType').style.color = "red"
+
+    lengthAux2 = contLength2
+    //console.log(lengthAux2)
+    for(i=1; i<contLength2; i++){
+        name2 = "nombre" + i
+        azar2 = Math.floor(Math.random() * (lengthAux2 - 1) + 1)
+        resAleatoria2 = vecProblema[azar2]
+        elementoEliminado2 = vecProblema.splice(azar2, 1)
+        const button = document.querySelector("[name="+name2+"]")
+        button.innerHTML = resAleatoria2
+        lengthAux2 = lengthAux2 - 1
+    }
+}
+
 function initBattle() {
     document.querySelector('#userInterface').style.display = 'block'
     document.querySelector('#dialogueBox').style.display = 'none'
     document.querySelector('#enemyHealthBar').style.width = '100%'
     document.querySelector('#playerHealthBar').style.width = '100%'
+    //--------------------- aqui se resetean los botones ------------------------------
     document.querySelector('#attacksBox').replaceChildren()
 
     draggle = new Monster(monsters.Draggle)
@@ -26,16 +122,18 @@ function initBattle() {
     renderedSprites = [draggle, emby]
     queue = []
 
-    emby.attacks.forEach((attack) => {
-        const button = document.createElement('button')
-        button.innerHTML = attack.name
-        document.querySelector('#attacksBox').append(button)
-    })
-
-    // our event listeners for our buttons (attack)
+    //------------------------------- aqui se crean los botones -------------------------------------
+    createButtons()
+    //------------------ aqui se ejecutan acciones al clickear los botones -----------------------------------------
     document.querySelectorAll('button').forEach((button) => {
         button.addEventListener('click', (e) => {
-            const selectedAttack = attacks[e.currentTarget.innerHTML]
+            //se selecciona el ataque
+            if(e.currentTarget.innerHTML == resCorrecta){
+                var selectedAttack = attacks["Correcto"]
+            }else{
+                var selectedAttack = attacks["Incorrecto"]
+            }
+            
             emby.attack({ 
                 attack: selectedAttack,
                 recipient: draggle,
@@ -97,13 +195,19 @@ function initBattle() {
                     })
                 })
             }
-        })
 
+            //------------------aqui resetear botones y preguntas-----------------------
+            modifyButtons()
+        })
+        
+//------------------------------ Al pasar el mouse en los botones se cambia la caja de la derecha con el tipo de ataque ----------------------------------
+/*
         button.addEventListener('mouseenter', (e) => {
             const selectedAttack = attacks[e.currentTarget.innerHTML]
             document.querySelector('#attackType').innerHTML = selectedAttack.type
             document.querySelector('#attackType').style.color = selectedAttack.color
         })
+        */
     })
 }
 

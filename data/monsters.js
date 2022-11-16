@@ -20,7 +20,8 @@ const monsters = {
         },
         animate: true,
         name: 'Emby',
-        attacks: [attacks.Tackle, attacks.Fireball]
+        //attacks: [attacks.Tackle, attacks.Fireball]
+        attacks: [attacks["6/8"], attacks["2/4"], attacks["4/8"], attacks["7/8"], attacks.Correcto, attacks.Incorrecto]
     },
 
     Draggle:{

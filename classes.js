@@ -84,7 +84,7 @@ class Monster extends Sprite {
     }
 
     faint(){
-        document.querySelector('#dialogueBox').innerHTML = this.name + ' fainted! '
+        document.querySelector('#dialogueBox').innerHTML = this.name + ' Derrotado! '
         gsap.to(this.position, {
             y: this.position.y + 20
         })
@@ -96,9 +96,9 @@ class Monster extends Sprite {
     }
     
     attack({attack, recipient, renderedSprites}) {
-        //------------------------------------- 6 horas 10 segundos 6:00:10 ------------------------------------------------------------
+
         document.querySelector('#dialogueBox').style.display = 'block'
-        document.querySelector('#dialogueBox').innerHTML = this.name + ' use '+ attack.name
+        document.querySelector('#dialogueBox').innerHTML = this.name + ' eligio '+ attack.name + " Respuesta: " + attack.type
 
         let healthBar = '#enemyHealthBar'
         if (this.isEnemy) healthBar = '#playerHealthBar'
@@ -107,8 +107,9 @@ class Monster extends Sprite {
         if (this.isEnemy) rotation = -2.2
 
         recipient.health -= attack.damage
-
+//--------------------------------------------- aqui se selecciona el ataque --------------------------------------------
         switch (attack.name){
+            //-------------------- fireball original ----------------------------------------
             case 'Fireball':
                 audio.initFireBall.play()
                 const fireballImage = new Image()
@@ -156,6 +157,7 @@ class Monster extends Sprite {
                 })
 
             break;
+            //---------------------------------- tackle original ----------------------------------
             case 'Tackle':
                 const tl = gsap.timeline()
 
@@ -194,6 +196,260 @@ class Monster extends Sprite {
                     x: this.position.x
                 })
             break;
+            //-------------------------------- ataques estaticos ----------------------------------------------------
+            case '6/8':
+                const fireballImage2 = new Image()
+                fireballImage2.src = './My Game Assets/Images/fireball.png'
+                const fireball2 = new Sprite({
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    image: fireballImage2,
+                    frames: {
+                        max: 4,
+                        hold: 20
+                    },
+                    animate: true,
+                    rotation
+                })
+
+                renderedSprites.splice(1, 0, fireball2)
+
+                gsap.to(fireball2.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        audio.fireballHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                        renderedSprites.splice(1, 1)
+                    }
+                })
+
+            break;
+
+            case '2/4':
+                const tl2 = gsap.timeline()
+
+                let movementDistance2 = 20
+                if(this.isEnemy) movementDistance2 = -20
+
+                tl2.to(this.position, {
+                    x: this.position.x - movementDistance2
+                })
+                .to(this.position, {
+                    x: this.position.x + movementDistance2 * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+
+                        audio.tackleHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                    }
+                })
+                .to(this.position, {
+                    x: this.position.x
+                })
+            break;
+
+            case '4/8':
+                const tl3 = gsap.timeline()
+
+                let movementDistance3 = 20
+                if(this.isEnemy) movementDistance3 = -20
+
+                tl3.to(this.position, {
+                    x: this.position.x - movementDistance3
+                })
+                .to(this.position, {
+                    x: this.position.x + movementDistance3 * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+
+                        audio.tackleHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                    }
+                })
+                .to(this.position, {
+                    x: this.position.x
+                })
+            break;
+
+            case '7/8':
+                const tl4 = gsap.timeline()
+
+                let movementDistance4 = 20
+                if(this.isEnemy) movementDistance4 = -20
+
+                tl4.to(this.position, {
+                    x: this.position.x - movementDistance4
+                })
+                .to(this.position, {
+                    x: this.position.x + movementDistance4 * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+
+                        audio.tackleHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                    }
+                })
+                .to(this.position, {
+                    x: this.position.x
+                })
+            break;
+
+            //------------------------------------- fin ataques dinamicos ----------------------------------------------------------
+
+//-------------------------- ataques dinamicos --------------------------------------
+            case 'Correcto':
+                const fireballImage3 = new Image()
+                fireballImage3.src = './My Game Assets/Images/fireball.png'
+                const fireball3 = new Sprite({
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    image: fireballImage3,
+                    frames: {
+                        max: 4,
+                        hold: 20
+                    },
+                    animate: true,
+                    rotation
+                })
+
+                renderedSprites.splice(1, 0, fireball3)
+
+                gsap.to(fireball3.position, {
+                    x: recipient.position.x,
+                    y: recipient.position.y,
+                    onComplete: () => {
+                        audio.fireballHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                        renderedSprites.splice(1, 1)
+                    }
+                })
+
+            break;
+
+            case 'Incorrecto':
+                const tl5 = gsap.timeline()
+
+                let movementDistance5 = 20
+                if(this.isEnemy) movementDistance5 = -20
+
+                tl5.to(this.position, {
+                    x: this.position.x - movementDistance5
+                })
+                .to(this.position, {
+                    x: this.position.x + movementDistance5 * 2,
+                    duration: 0.1,
+                    onComplete: () => {
+
+                        audio.tackleHit.play()
+                        gsap.to(healthBar, {
+                            width: recipient.health + '%'
+                        })
+
+                        gsap.to(recipient.position, {
+                            x: recipient.position.x + 10,
+                            yoyo: true,
+                            repeat: 5,
+                            duration: 0.08
+                        })
+
+                        gsap.to(recipient, {
+                            opacity: 0,
+                            repeat: 5, 
+                            yoyo: true,
+                            duration: 0.08
+                        })
+                    }
+                })
+                .to(this.position, {
+                    x: this.position.x
+                })
+            break;
+            //------------------------------------- fin ataques dinamicos ----------------------------------------------------------
         }
     }
 }
