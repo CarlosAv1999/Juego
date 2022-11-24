@@ -51,8 +51,6 @@ battleZonesMap.forEach((row, i)=> {
     })
 })
 
-console.log(battleZones)
-
 const image = new Image()
 image.src = './My Game Assets/Images/Pellet Town.png'
 
@@ -134,7 +132,38 @@ const battle = {
     initiated: false
 }
 
+var defeatedEnemies = 0
+
 function animate() {
+//------------------------ aqui div inicial con indicaciones -----------------------------------
+    gsap.to('#instructions', {
+        opacity: 1,
+        duration: 15,
+        onComplete: () => {
+            gsap.to('#instructions', {
+                opacity: -1,
+                duration: 3,
+                onComplete: () => {
+                    document.querySelector('#instructions').style.display = 'none'
+                }
+            })
+        }
+    })
+
+if(defeatedEnemies >= 5){
+    document.querySelector('#dialogueBox').style.display = 'none'
+    document.querySelector('#attacksBox').replaceChildren()
+    document.querySelector('#returnMenu').style.display = 'block'
+}
+    document.querySelectorAll('button').forEach((button) => {
+        button.addEventListener('click', (e) => {
+            //se selecciona el ataque
+            if(e.currentTarget.innerHTML == "Regresar al Menu"){
+                window.location.href = "C:/Users/carlo/Desktop/Servicio Juego/Juego-Servicio-Social/titlepage.html";
+            }
+        })
+    })
+
     const animationId = window.requestAnimationFrame(animate)
     //console.log(animationId)
     background.draw()
@@ -208,7 +237,6 @@ function animate() {
             }
         }
     }
-
     
     if(keys.w.pressed && lastKey === 'w') {
         player.animate = true

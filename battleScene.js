@@ -49,33 +49,6 @@ function createButtons(){
     }
 }
 
-/*function modifyButtons(){
-    var azar = Math.floor(Math.random() * promLength)
-    var contLength = problemas[azar].length
-    var resAleatoria
-    var elementoEliminado
-    var lengthAux
-
-    vecProblema = problemas[azar]
-
-    pregunta = vecProblema[0]
-    resCorrecta = vecProblema[1]
-
-    document.querySelector('#attackType').innerHTML = pregunta
-    document.querySelector('#attackType').style.color = "red"
-
-    lengthAux = contLength
-    for(i=1; i<contLength; i++){
-        azar = Math.floor(Math.random() * (lengthAux - 1) + 1)
-        resAleatoria = vecProblema[azar]
-        elementoEliminado = vecProblema.splice(azar, 1)
-        const button = document.querySelector('[name="\\'+ i + '"]').innerHTML = "obooo"
-        //button.innerHTML = "obooo"
-        //document.querySelector('#attacksBox').append(button)
-        lengthAux = lengthAux - 1
-    }
-}*/
-
 function modifyButtons(){
     console.log('entroooo modify')
     var azar2 = Math.floor(Math.random() * promLength)
@@ -118,7 +91,11 @@ function initBattle() {
     document.querySelector('#attacksBox').replaceChildren()
 
     draggle = new Monster(monsters.Draggle)
+    draggle.position.y = 100
+    draggle.position.x = 800
     emby = new Monster(monsters.Emby)
+    emby.position.x = 280
+    emby.position.y = 325
     renderedSprites = [draggle, emby]
     queue = []
 
@@ -133,6 +110,7 @@ function initBattle() {
             }else{
                 var selectedAttack = attacks["Incorrecto"]
             }
+        
             
             emby.attack({ 
                 attack: selectedAttack,
@@ -141,6 +119,7 @@ function initBattle() {
             })
 
             if (draggle.health <= 0){
+                defeatedEnemies++
                 queue.push(() => {
                     draggle.faint()
                 })
@@ -200,14 +179,6 @@ function initBattle() {
             modifyButtons()
         })
         
-//------------------------------ Al pasar el mouse en los botones se cambia la caja de la derecha con el tipo de ataque ----------------------------------
-/*
-        button.addEventListener('mouseenter', (e) => {
-            const selectedAttack = attacks[e.currentTarget.innerHTML]
-            document.querySelector('#attackType').innerHTML = selectedAttack.type
-            document.querySelector('#attackType').style.color = selectedAttack.color
-        })
-        */
     })
 }
 
@@ -223,7 +194,6 @@ function animateBattle(){
 animate()
 //initBattle()
 //animateBattle()
-
 
 document.querySelector('#dialogueBox').addEventListener('click', (e) => {
     if(queue.length > 0) {

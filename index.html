@@ -39,9 +39,46 @@
         z-index: 10;
     ">
     </div>
-    
     <canvas></canvas>
-
+<!-- -------------------------------------------------- aqui inicia div de instrucciones --------------------------------------------------------- -->
+    <div id = "instructions" style="display: block;">
+        <div style = "
+        background-color: white; 
+        height: 140px; 
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        border-top: 4px black solid;
+        display: flex;
+        ">
+            <div  style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; ; background-color: white; padding: 14px; display: block; cursor: pointer;">
+            Bien venido jugador, debes derrotar a 5 enemigos para poder superar este nivel, busca entre los pastisales para encontrar a las horugas.
+            </div>
+        </div>
+    </div>
+<!-- -------------------------------------------------- aqui termina div de instrucciones --------------------------------------------------------- -->
+<!-- -------------------------------------------------- aqui empieza div de regreso al menu ---------------------------------------------------------  -->
+<div id = "returnMenu" style="display: none;">
+    <div style = "
+    background-color: white; 
+    height: 140px; 
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    border-top: 4px black solid;
+    display: flex;
+    ">
+        <div style="width: 66.66%; display: block; padding: 14px">
+            Has completado el nivel, selecciona el boton para regresar al menu o regresa a los pastisales para seguir practicando.
+        </div>
+        <div style="display: flex; align-items: center; justify-content: center; width: 33.33%; border-left: 4px black solid; cursor: pointer;">
+            <button name="returnBtn" style="width: 95%; height: 90%; background: rgb(134, 134, 134);">Regresar al Menu</button>
+        </div>
+    </div>
+</div>  
+<!-- -------------------------------------------------- aqui termina div de regreso al menu --------------------------------------------------------- -->
     <div id = "userInterface" style="display: none;">
         <div style="
         background-color: white; 
@@ -68,7 +105,6 @@
                 </div>
             </div> 
         </div>
-
         <div style="
             background-color: white; 
             width: 250px;  
@@ -94,7 +130,6 @@
                 </div>
             </div> 
         </div>
-
         <div style = "
         background-color: white; 
         height: 140px; 
@@ -105,9 +140,7 @@
         border-top: 4px black solid;
         display: flex;
         ">
-
         <div id = "dialogueBox" style="position: absolute; top: 0; right: 0; bottom: 0; left: 0; ; background-color: white; padding: 12px; display: none; cursor: pointer;">
-
         </div>
             <div id = "attacksBox" style="width: 66.66%; display: grid; grid-template-columns: repeat(2, 1fr);">
             </div>
@@ -115,10 +148,7 @@
                 <h1 id = "attackType" style="font-size: 16px;"></h1>
             </div>
         </div>
-    </div>
-
-
-    
+    </div>  
 </div>
 
 <script src="data/howler2.2.3.min.js"></script>
