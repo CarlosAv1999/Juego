@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="data/bootstrap.min.js" rel="stylesheet">
+        <title>Menu</title>
+        <link href="CSS/bootstrap.min.css" rel="stylesheet">
+        <link href="CSS/Fuente.css" rel="stylesheet">
+        <style>
+            * {
+                font-family: 'Press Start 2P', cursive;
+            }
+        </style>
+    </head>
+    <body background="My Game Assets/Images/Fondo menu.png">
+        <div class="container border border-success" style="height: 1080px; align-items: center; background-color: rgb(50, 50, 50, .5);">
+
+
+
+                <div class="border border-success row h-25 justify-content-center">
+
+
+
+                    <div class="border border-success justify-content-center col-9" style="padding-top: 8.5%; background-color: rgba(255, 255, 255, 0.4);">
+                        <h1 style="font-size: 40PX; text-align: center;">NÚMEROS Y MONSTRUOS</H1>
+                    </div>
+
+
+                </div>
+
+
+            <div class="row justify-content-center h-50" style="background-color: rgb(255, 242, 0, 0.6);">
+                
+
+
+                <div class="border border-success" style="padding-left: 40px; padding-right: 40px; text-align: center;">
+                    Selección de mapas
+
+                    <div class="row justify-content-center h-25 border border-success" style="margin-top: 4%; background-color: rgb(0, 255, 8, 0.8);">
+                        <p style="font-size: 16px; text-align: center;">Mapa 1</p>
+                        <br>
+                        <p style="font-size: 15px; text-align: center;">
+                           Vence a los monstruos para lograr salir de la isla. Te esperan desafíos de suma y resta de fracciones.
+                            <br>
+                            <button style="width: 200px;" onclick="location.href='Maps/Map1/index.html'">La isla</button>
+                        </p>
+                    </div>
+                    <div class="row justify-content-center h-25 border border-success" style="background-color: rgb(2, 193, 110, 0.8);">
+                        <p style="font-size: 16px; text-align: center;">Mapa 2</p>
+                        <br>
+                        <p style="font-size: 15px; text-align: center;">
+                            Vence a los monstruos y logra acceder a la montaña. Te esperan desafíos de representación de fracciones.
+                            <br>
+                            <button style="width: 200px;" onclick="location.href='Maps/Map2/indexMap2.html'">El bosque</button>
+                        </p>
+                    </div>
+                    <div class="row justify-content-center h-25 border border-success" style="background-color: rgb(0, 255, 115, 0.8);">
+                        <p style="font-size: 16px; text-align: center;">Mapa 3</p>
+                        <br>
+                        <p style="font-size: 15px; text-align: center;">
+                            Vence a los monstruos y logra completar el último nivel de la montaña. Te esperan desafíos de comparación de fracciones.
+                            <br>
+                            <button style="width: 200px;" onclick="location.href='Maps/Map3/indexMap3.html'">La montaña</button>
+                        </p>
+                        
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+            <div class="row justify-content-center h-25" >
+            </div>
+
+        </div>
+        <script src="data/howler2.2.3.min.js"></script>
+        <script src="data/audioMenu.js"></script>
+        
+        
+        <script>
+                let pressed2 = false
+            addEventListener('keyup', () => {
+                if(!pressed2){
+                    audioMenu.menu.play()
+                    pressed2 = true
+                } 
+            })
+        </script>
+    </body>
+</html>

@@ -1,8 +1,8 @@
 const embyImage = new Image()
-embyImage.src = './My Game Assets/Images/embySprite.png'
+embyImage.src = '../../My Game Assets/Images/embySprite.png'
 
 const draggleImage = new Image()
-draggleImage.src = './My Game Assets/Images/draggleSprite.png'
+draggleImage.src = '../../My Game Assets/Images/draggleSprite.png'
 
 const monsters = {
     Emby:{
@@ -11,7 +11,7 @@ const monsters = {
             y: 325
         },
         image: {
-            src: './My Game Assets/Images/embySprite.png'
+            src: '../../My Game Assets/Images/embySprite.png'
         },
         image: embyImage,
         frames: {
@@ -30,7 +30,7 @@ const monsters = {
             y: 100
         },
         image: {
-            src: './My Game Assets/Images/draggleSprite.png'
+            src: '../../My Game Assets/Images/draggleSprite.png'
         },
         frames: {
             max: 4,
